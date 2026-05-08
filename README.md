@@ -19,8 +19,6 @@ A tiny Windows desktop helper for people who use Codex Desktop with Superpowers-
 
 It keeps a compact always-on-top panel beside Codex. Click a phrase such as `Confirm`, `Continue`, `Yes`, `No`, `1`, `2`, `A`, or `B`, and the app pastes the matching text into the previously focused Codex input box and submits it with Enter.
 
-English is the default documentation language. Use the language switcher above for Simplified Chinese.
-
 ## Why
 
 Codex Desktop and Superpowers workflows often pause for short human confirmations:
