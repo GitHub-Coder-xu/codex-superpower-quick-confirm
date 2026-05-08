@@ -6,10 +6,6 @@
 </p>
 
 <p align="center">
-  <a href="https://deepwiki.com/GitHub-Coder-xu/codex-superpower-quick-confirm"><img alt="Ask DeepWiki" src="https://deepwiki.com/badge.svg"></a>
-</p>
-
-<p align="center">
   <a href="../README.md">English</a> | <a href="./README.zh-CN.md">简体中文</a>
 </p>
 
