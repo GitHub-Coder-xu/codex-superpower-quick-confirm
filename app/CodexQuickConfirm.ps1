@@ -26,6 +26,13 @@ public static class CodexQuickConfirmWin32
     [DllImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern bool ReleaseCapture();
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr SendMessage(IntPtr hWnd, int msg, int wParam, int lParam);
 }
 '@
 }
@@ -49,6 +56,8 @@ $script:Phrases = @(
 
 $script:ToolWindowHandle = [IntPtr]::Zero
 $script:LastTargetWindow = [IntPtr]::Zero
+$script:WM_NCLBUTTONDOWN = 0x00A1
+$script:HTCAPTION = 0x0002
 
 function Restore-ClipboardData {
     param(
@@ -103,18 +112,24 @@ function Invoke-QuickSend {
     }
 }
 
+function Start-WindowDrag {
+    [CodexQuickConfirmWin32]::ReleaseCapture() | Out-Null
+    [CodexQuickConfirmWin32]::SendMessage($form.Handle, $script:WM_NCLBUTTONDOWN, $script:HTCAPTION, 0) | Out-Null
+}
+
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $form = New-Object System.Windows.Forms.Form
 $form.Text = 'Codex Quick Confirm'
 $form.TopMost = $true
 $form.StartPosition = 'CenterScreen'
-$form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::FixedToolWindow
+$form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::None
 $form.MaximizeBox = $false
-$form.MinimizeBox = $true
+$form.MinimizeBox = $false
 $form.ShowInTaskbar = $true
-$form.ClientSize = New-Object System.Drawing.Size(336, 220)
+$form.ClientSize = New-Object System.Drawing.Size(360, 198)
 $form.Font = New-Object System.Drawing.Font('Microsoft YaHei UI', 10)
+$form.BackColor = [System.Drawing.Color]::FromArgb(210, 215, 222)
 
 function Set-TopMostState {
     param(
@@ -139,21 +154,44 @@ $root = New-Object System.Windows.Forms.TableLayoutPanel
 $root.Dock = [System.Windows.Forms.DockStyle]::Fill
 $root.ColumnCount = 1
 $root.RowCount = 2
-$root.Padding = New-Object System.Windows.Forms.Padding(8)
-[void]$root.RowStyles.Add((New-Object System.Windows.Forms.RowStyle([System.Windows.Forms.SizeType]::Absolute, 42)))
+$root.Padding = New-Object System.Windows.Forms.Padding(1)
+[void]$root.RowStyles.Add((New-Object System.Windows.Forms.RowStyle([System.Windows.Forms.SizeType]::Absolute, 34)))
 [void]$root.RowStyles.Add((New-Object System.Windows.Forms.RowStyle([System.Windows.Forms.SizeType]::Percent, 100)))
 
-$toolbar = New-Object System.Windows.Forms.TableLayoutPanel
-$toolbar.Dock = [System.Windows.Forms.DockStyle]::Fill
-$toolbar.ColumnCount = 2
-$toolbar.RowCount = 1
-[void]$toolbar.ColumnStyles.Add((New-Object System.Windows.Forms.ColumnStyle([System.Windows.Forms.SizeType]::Percent, 50)))
-[void]$toolbar.ColumnStyles.Add((New-Object System.Windows.Forms.ColumnStyle([System.Windows.Forms.SizeType]::Percent, 50)))
+$captionBar = New-Object System.Windows.Forms.TableLayoutPanel
+$captionBar.Dock = [System.Windows.Forms.DockStyle]::Fill
+$captionBar.ColumnCount = 4
+$captionBar.RowCount = 1
+$captionBar.BackColor = [System.Drawing.Color]::FromArgb(245, 247, 250)
+$captionBar.Margin = New-Object System.Windows.Forms.Padding(0)
+$captionBar.Padding = New-Object System.Windows.Forms.Padding(8, 0, 4, 0)
+[void]$captionBar.ColumnStyles.Add((New-Object System.Windows.Forms.ColumnStyle([System.Windows.Forms.SizeType]::Percent, 100)))
+[void]$captionBar.ColumnStyles.Add((New-Object System.Windows.Forms.ColumnStyle([System.Windows.Forms.SizeType]::Absolute, 78)))
+[void]$captionBar.ColumnStyles.Add((New-Object System.Windows.Forms.ColumnStyle([System.Windows.Forms.SizeType]::Absolute, 64)))
+[void]$captionBar.ColumnStyles.Add((New-Object System.Windows.Forms.ColumnStyle([System.Windows.Forms.SizeType]::Absolute, 34)))
+$captionBar.Add_MouseDown({
+    param($sender, $eventArgs)
+    if ($eventArgs.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
+        Start-WindowDrag
+    }
+})
+
+$titleLabel = New-Object System.Windows.Forms.Label
+$titleLabel.Text = 'Codex Quick Confirm'
+$titleLabel.Dock = [System.Windows.Forms.DockStyle]::Fill
+$titleLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleLeft
+$titleLabel.Font = New-Object System.Drawing.Font('Microsoft YaHei UI', 9, [System.Drawing.FontStyle]::Regular)
+$titleLabel.Add_MouseDown({
+    param($sender, $eventArgs)
+    if ($eventArgs.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
+        Start-WindowDrag
+    }
+})
 
 $minimizeButton = New-Object System.Windows.Forms.Button
 $minimizeButton.Text = '最小化'
 $minimizeButton.Dock = [System.Windows.Forms.DockStyle]::Fill
-$minimizeButton.Margin = New-Object System.Windows.Forms.Padding(4)
+$minimizeButton.Margin = New-Object System.Windows.Forms.Padding(2, 4, 2, 4)
 $minimizeButton.UseVisualStyleBackColor = $true
 $minimizeButton.Add_Click({
     $form.WindowState = [System.Windows.Forms.FormWindowState]::Minimized
@@ -162,19 +200,32 @@ $minimizeButton.Add_Click({
 $topMostButton = New-Object System.Windows.Forms.Button
 $topMostButton.Text = '取消置顶'
 $topMostButton.Dock = [System.Windows.Forms.DockStyle]::Fill
-$topMostButton.Margin = New-Object System.Windows.Forms.Padding(4)
+$topMostButton.Margin = New-Object System.Windows.Forms.Padding(2, 4, 2, 4)
 $topMostButton.UseVisualStyleBackColor = $true
 $topMostButton.Add_Click({
     Set-TopMostState -enabled (-not $form.TopMost) -ToggleButton $topMostButton
 })
 
-[void]$toolbar.Controls.Add($minimizeButton, 0, 0)
-[void]$toolbar.Controls.Add($topMostButton, 1, 0)
+$closeButton = New-Object System.Windows.Forms.Button
+$closeButton.Text = 'X'
+$closeButton.Dock = [System.Windows.Forms.DockStyle]::Fill
+$closeButton.Margin = New-Object System.Windows.Forms.Padding(2, 4, 0, 4)
+$closeButton.UseVisualStyleBackColor = $true
+$closeButton.Add_Click({
+    $form.Close()
+})
+
+[void]$captionBar.Controls.Add($titleLabel, 0, 0)
+[void]$captionBar.Controls.Add($topMostButton, 1, 0)
+[void]$captionBar.Controls.Add($minimizeButton, 2, 0)
+[void]$captionBar.Controls.Add($closeButton, 3, 0)
 
 $table = New-Object System.Windows.Forms.TableLayoutPanel
 $table.Dock = [System.Windows.Forms.DockStyle]::Fill
 $table.ColumnCount = 4
 $table.RowCount = 3
+$table.BackColor = [System.Drawing.SystemColors]::Control
+$table.Padding = New-Object System.Windows.Forms.Padding(8)
 
 for ($index = 0; $index -lt 4; $index++) {
     [void]$table.ColumnStyles.Add((New-Object System.Windows.Forms.ColumnStyle([System.Windows.Forms.SizeType]::Percent, 25)))
@@ -200,7 +251,7 @@ foreach ($phrase in $script:Phrases) {
     [void]$table.Controls.Add($button)
 }
 
-[void]$root.Controls.Add($toolbar, 0, 0)
+[void]$root.Controls.Add($captionBar, 0, 0)
 [void]$root.Controls.Add($table, 0, 1)
 $form.Controls.Add($root)
 
@@ -249,6 +300,7 @@ if ($SelfTest) {
 }
 
 [void][System.Windows.Forms.Application]::Run($form)
+
 
 
 

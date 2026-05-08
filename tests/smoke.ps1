@@ -107,6 +107,22 @@ if (-not $appText.Contains('$form.TopMost = $enabled')) {
     throw 'TopMost toggle behavior missing from app script.'
 }
 
+foreach ($captionSnippet in @(
+    '$form.FormBorderStyle = [System.Windows.Forms.FormBorderStyle]::None',
+    '$captionBar',
+    '$closeButton',
+    'ReleaseCapture',
+    'WM_NCLBUTTONDOWN'
+)) {
+    if (-not $appText.Contains($captionSnippet)) {
+        throw "Expected custom title-bar implementation missing: $captionSnippet"
+    }
+}
+
+if ($appText.Contains('$toolbar = New-Object System.Windows.Forms.TableLayoutPanel')) {
+    throw 'Content toolbar should not be used for window controls.'
+}
+
 $forbidden = ('every' + '-' + 'tingle')
 Get-ChildItem -LiteralPath $repoRoot -Recurse -File -Force |
     Where-Object { $_.FullName -notmatch '\\.git(\\|$)' } |
@@ -118,5 +134,7 @@ Get-ChildItem -LiteralPath $repoRoot -Recurse -File -Force |
     }
 
 Write-Host 'Smoke checks passed.'
+
+
 
 

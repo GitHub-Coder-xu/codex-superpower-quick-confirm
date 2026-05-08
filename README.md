@@ -39,7 +39,7 @@ This tool removes repeated typing while keeping the human decision explicit.
 - Clipboard paste for reliable Chinese and ASCII text input.
 - Automatic Enter after each phrase.
 - Always-on-top window by default.
-- Toolbar controls for `Minimize` and topmost on/off.
+- Title-bar controls for `Minimize` and topmost on/off beside `Close`.
 - No installer, no background service, no network access.
 
 ## Phrase Set
@@ -81,7 +81,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\start.ps1
 3. Click one of the quick-confirm buttons.
 4. The helper pastes the phrase and sends Enter.
 
-Use `Minimize` to send the window to the taskbar. Use the topmost toggle to allow other windows to cover the helper, then restore topmost mode when needed.
+Use the buttons beside `Close` to minimize the window or toggle topmost mode. Turning topmost off allows other windows to cover the helper; the same button restores topmost mode when needed.
 
 ## How It Works
 
@@ -116,4 +116,5 @@ Current release: `0.0.1`
 ## License
 
 MIT
+
 
