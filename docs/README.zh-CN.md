@@ -1,5 +1,3 @@
-﻿<h1 align="center">Codex Superpower Quick Confirm 中文说明</h1>
-
 <p align="center">
   <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/releases/latest"><img alt="release" src="https://img.shields.io/github/v/release/GitHub-Coder-xu/codex-superpower-quick-confirm?include_prereleases&label=release&labelColor=000000&color=2f80ed"></a>
   <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/stargazers"><img alt="stars" src="https://img.shields.io/github/stars/GitHub-Coder-xu/codex-superpower-quick-confirm?label=stars&labelColor=000000&color=facc15"></a>
@@ -69,18 +67,3 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\start.ps1
 ## 工作方式
 
 工具会记录最近一个非自身窗口作为目标窗口。点击按钮时，它会重新激活目标窗口，把短语临时写入剪贴板，发送 `Ctrl+V` 和 Enter，然后尽量恢复原来的剪贴板内容。
-
-## 验证
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tests\smoke.ps1
-```
-
-GUI 启动自测：
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\start.ps1 -SelfTest
-```
-
-看到 `Self-test window shown.` 即表示窗口可以正常创建并关闭。
-
