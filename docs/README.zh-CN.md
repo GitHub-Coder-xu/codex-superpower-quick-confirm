@@ -1,4 +1,19 @@
-﻿# Codex Superpower Quick Confirm 中文说明
+﻿<h1 align="center">Codex Superpower Quick Confirm 中文说明</h1>
+
+<p align="center">
+  <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/releases/latest"><img alt="release" src="https://img.shields.io/github/v/release/GitHub-Coder-xu/codex-superpower-quick-confirm?include_prereleases&label=release&labelColor=000000&color=2f80ed"></a>
+  <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/stargazers"><img alt="stars" src="https://img.shields.io/github/stars/GitHub-Coder-xu/codex-superpower-quick-confirm?label=stars&labelColor=000000&color=facc15"></a>
+  <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/issues"><img alt="issues" src="https://img.shields.io/github/issues/GitHub-Coder-xu/codex-superpower-quick-confirm?label=issues&labelColor=000000&color=f472b6"></a>
+  <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/GitHub-Coder-xu/codex-superpower-quick-confirm?label=license&labelColor=000000&color=111111"></a>
+</p>
+
+<p align="center">
+  <a href="https://deepwiki.com/GitHub-Coder-xu/codex-superpower-quick-confirm"><img alt="Ask DeepWiki" src="https://deepwiki.com/badge.svg"></a>
+</p>
+
+<p align="center">
+  <a href="../README.md">English</a> | <a href="./README.zh-CN.md">简体中文</a>
+</p>
 
 这是一个 Windows 桌面小工具，适合搭配 Codex 桌面应用和 Superpowers 工作流使用。它把常见确认语放到一个置顶小窗口里，点击按钮后自动把对应内容粘贴到 Codex 输入框并发送。
 
@@ -68,3 +83,4 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\start.ps1 -Sel
 ```
 
 看到 `Self-test window shown.` 即表示窗口可以正常创建并关闭。
+

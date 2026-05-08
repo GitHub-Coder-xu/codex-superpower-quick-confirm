@@ -87,13 +87,13 @@ foreach ($controlText in $expectedControls) {
     }
 }
 
-foreach ($readmeTextSnippet in @('Codex Desktop', 'Superpowers', 'Chinese documentation', 'Star History', '0.0.1')) {
+foreach ($readmeTextSnippet in @('Codex Desktop', 'Superpowers', 'Ask DeepWiki', 'English</a> | <a href="./docs/README.zh-CN.md">简体中文', 'Star History', '0.0.1')) {
     if (-not $readmeText.Contains($readmeTextSnippet)) {
         throw "Expected README content missing: $readmeTextSnippet"
     }
 }
 
-foreach ($zhReadmeTextSnippet in @('Codex 桌面应用', 'Superpowers 工作流', '最小化', '取消置顶')) {
+foreach ($zhReadmeTextSnippet in @('Ask DeepWiki', 'English</a> | <a href="./README.zh-CN.md">简体中文', 'Codex 桌面应用', 'Superpowers 工作流', '最小化', '取消置顶')) {
     if (-not $zhReadmeText.Contains($zhReadmeTextSnippet)) {
         throw "Expected Chinese README content missing: $zhReadmeTextSnippet"
     }
@@ -118,4 +118,5 @@ Get-ChildItem -LiteralPath $repoRoot -Recurse -File -Force |
     }
 
 Write-Host 'Smoke checks passed.'
+
 

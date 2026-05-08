@@ -1,15 +1,29 @@
-﻿# Codex Superpower Quick Confirm
+﻿<h1 align="center">Codex Superpower Quick Confirm</h1>
+
+<p align="center">
+  <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/releases/latest"><img alt="release" src="https://img.shields.io/github/v/release/GitHub-Coder-xu/codex-superpower-quick-confirm?include_prereleases&label=release&labelColor=000000&color=2f80ed"></a>
+  <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/graphs/contributors"><img alt="contributors" src="https://img.shields.io/github/contributors/GitHub-Coder-xu/codex-superpower-quick-confirm?label=contributors&labelColor=000000&color=a3e635"></a>
+  <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/network/members"><img alt="forks" src="https://img.shields.io/github/forks/GitHub-Coder-xu/codex-superpower-quick-confirm?label=forks&labelColor=000000&color=67e8f9"></a>
+  <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/stargazers"><img alt="stars" src="https://img.shields.io/github/stars/GitHub-Coder-xu/codex-superpower-quick-confirm?label=stars&labelColor=000000&color=facc15"></a>
+  <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/issues"><img alt="issues" src="https://img.shields.io/github/issues/GitHub-Coder-xu/codex-superpower-quick-confirm?label=issues&labelColor=000000&color=f472b6"></a>
+  <a href="https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/GitHub-Coder-xu/codex-superpower-quick-confirm?label=license&labelColor=000000&color=111111"></a>
+  <img alt="platform" src="https://img.shields.io/badge/platform-Windows-0078D4?labelColor=000000">
+  <img alt="runtime" src="https://img.shields.io/badge/runtime-PowerShell-5391FE?labelColor=000000">
+</p>
+
+<p align="center">
+  <a href="https://deepwiki.com/GitHub-Coder-xu/codex-superpower-quick-confirm"><img alt="Ask DeepWiki" src="https://deepwiki.com/badge.svg"></a>
+</p>
+
+<p align="center">
+  <a href="./README.md">English</a> | <a href="./docs/README.zh-CN.md">简体中文</a>
+</p>
 
 A tiny Windows desktop helper for people who use Codex Desktop with Superpowers-style workflows and want one-click replies for frequent confirmation prompts.
 
 It keeps a compact always-on-top panel beside Codex. Click a phrase such as `Confirm`, `Continue`, `Yes`, `No`, `1`, `2`, `A`, or `B`, and the app pastes the matching text into the previously focused Codex input box and submits it with Enter.
 
-> Chinese documentation: https://github.com/GitHub-Coder-xu/codex-superpower-quick-confirm/blob/main/docs/README.zh-CN.md
-
-![Windows](https://img.shields.io/badge/platform-Windows-0078D4)
-![PowerShell](https://img.shields.io/badge/runtime-Windows%20PowerShell-5391FE)
-![Release](https://img.shields.io/github/v/release/GitHub-Coder-xu/codex-superpower-quick-confirm?include_prereleases)
-![License](https://img.shields.io/github/license/GitHub-Coder-xu/codex-superpower-quick-confirm)
+English is the default documentation language. Use the language switcher above for Simplified Chinese.
 
 ## Why
 
@@ -106,3 +120,4 @@ Current release: `0.0.1`
 ## License
 
 MIT
+
